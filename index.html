@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Coffee — Maison de Café</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cinzel:wght@400;600;700;900&family=Jost:wght@300;400;500;600&display=swap" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- CURSOR -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+
+  <!-- LOADER -->
+  <div class="loader" id="loader">
+    <div class="loader-inner">
+      <svg class="loader-logo" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="60" cy="60" r="55" stroke="#C9A96E" stroke-width="1.5" stroke-dasharray="345" stroke-dashoffset="345" class="loader-circle"/>
+        <text x="50%" y="52%" dominant-baseline="middle" text-anchor="middle" fill="#C9A96E" font-family="Cinzel" font-size="10" letter-spacing="2">THE</text>
+        <text x="50%" y="65%" dominant-baseline="middle" text-anchor="middle" fill="#C9A96E" font-family="Cinzel" font-size="13" font-weight="700" letter-spacing="1">COFFEE</text>
+      </svg>
+      <div class="loader-bar"><div class="loader-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">
+      <span class="nav-logo-icon">☕</span>
+      <div class="nav-logo-text">
+        <span class="nav-title">THE COFFEE</span>
+        <span class="nav-sub">MAISON DE CAFÉ</span>
+      </div>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a href="#home" class="nav-link active">Home</a>
+      <a href="#menu" class="nav-link">Menu</a>
+      <a href="#about" class="nav-link">Our Story</a>
+      <a href="#loyalty" class="nav-link">Rewards</a>
+      <a href="#reserve" class="nav-link">Reserve</a>
+      <a href="#locations" class="nav-link">Locations</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-search-btn" id="searchToggle"><i class="fas fa-search"></i></button>
+      <button class="nav-cart-btn" id="cartToggle">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="nav-order-btn" onclick="scrollToSection('menu')">Order Now</button>
+      <button class="nav-hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- SEARCH OVERLAY -->
+  <div class="search-overlay" id="searchOverlay">
+    <button class="search-close" id="searchClose"><i class="fas fa-times"></i></button>
+    <div class="search-inner">
+      <p class="search-label">What are you craving?</p>
+      <input type="text" class="search-input" id="searchInput" placeholder="Espresso, Latte, Croissant..." />
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3>Your Order</h3>
+      <button class="cart-close-btn" id="cartClose"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty">
+        <i class="fas fa-coffee"></i>
+        <p>Your cup is empty</p>
+        <span>Add something delicious</span>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-subtotal">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">₱0.00</span>
+      </div>
+      <div class="cart-tax">
+        <span>Tax (12%)</span>
+        <span id="cartTax">₱0.00</span>
+      </div>
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cartTotal">₱0.00</span>
+      </div>
+      <div class="cart-options">
+        <label class="cart-option">
+          <input type="radio" name="orderType" value="dine" checked> Dine In
+        </label>
+        <label class="cart-option">
+          <input type="radio" name="orderType" value="takeout"> Takeout
+        </label>
+        <label class="cart-option">
+          <input type="radio" name="orderType" value="delivery"> Delivery
+        </label>
+      </div>
+      <button class="cart-checkout-btn" onclick="checkout()">
+        <i class="fas fa-lock"></i> Proceed to Checkout
+      </button>
+      <button class="cart-clear-btn" onclick="clearCart()">Clear Order</button>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="hero-particles" id="heroParticles"></div>
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow" data-animate="fadeUp">Est. 2026 · Maison de Café</p>
+      <h1 class="hero-title" data-animate="fadeUp" data-delay="200">
+        Where Every<br/><em>Sip Tells</em><br/>a Story
+      </h1>
+      <p class="hero-desc" data-animate="fadeUp" data-delay="400">
+        Crafted with passion, served with elegance. Experience coffee the way it was always meant to be — extraordinary.
+      </p>
+      <div class="hero-actions" data-animate="fadeUp" data-delay="600">
+        <button class="btn-primary" onclick="scrollToSection('menu')">
+          <span>Explore Menu</span><i class="fas fa-arrow-right"></i>
+        </button>
+        <button class="btn-ghost" onclick="scrollToSection('about')">
+          Our Story <i class="fas fa-play"></i>
+        </button>
+      </div>
+      <div class="hero-stats" data-animate="fadeUp" data-delay="800">
+        <div class="hero-stat">
+          <span class="stat-num" data-target="50">0</span><span class="stat-sym">+</span>
+          <span class="stat-label">Blends</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-num" data-target="12">0</span><span class="stat-sym">K+</span>
+          <span class="stat-label">Happy Customers</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-num" data-target="5">0</span><span class="stat-sym"></span>
+          <span class="stat-label">Locations</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-indicator">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+    <div class="hero-cup-visual">
+      <div class="cup-glow"></div>
+      <div class="steam-container">
+        <div class="steam s1"></div>
+        <div class="steam s2"></div>
+        <div class="steam s3"></div>
+      </div>
+      <svg class="hero-cup-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="155" rx="65" ry="8" fill="#C9A96E" opacity="0.3"/>
+        <path d="M55 90 Q50 140 70 155 L130 155 Q150 140 145 90 Z" fill="#1B3A2D" stroke="#C9A96E" stroke-width="2"/>
+        <path d="M55 90 Q100 80 145 90" fill="none" stroke="#C9A96E" stroke-width="2"/>
+        <ellipse cx="100" cy="90" rx="45" ry="8" fill="#C9A96E" opacity="0.6"/>
+        <path d="M145 105 Q165 105 165 120 Q165 135 145 135" fill="none" stroke="#C9A96E" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- MARQUEE BAND -->
+  <div class="marquee-band">
+    <div class="marquee-track">
+      <span>Single Origin Beans</span><span class="marquee-dot">✦</span>
+      <span>Cold Brew</span><span class="marquee-dot">✦</span>
+      <span>Specialty Espresso</span><span class="marquee-dot">✦</span>
+      <span>Artisan Pastries</span><span class="marquee-dot">✦</span>
+      <span>Reserve Blends</span><span class="marquee-dot">✦</span>
+      <span>Seasonal Specials</span><span class="marquee-dot">✦</span>
+      <span>Pour Over</span><span class="marquee-dot">✦</span>
+      <span>Nitro Coffee</span><span class="marquee-dot">✦</span>
+      <span>Single Origin Beans</span><span class="marquee-dot">✦</span>
+      <span>Cold Brew</span><span class="marquee-dot">✦</span>
+      <span>Specialty Espresso</span><span class="marquee-dot">✦</span>
+      <span>Artisan Pastries</span><span class="marquee-dot">✦</span>
+      <span>Reserve Blends</span><span class="marquee-dot">✦</span>
+      <span>Seasonal Specials</span><span class="marquee-dot">✦</span>
+      <span>Pour Over</span><span class="marquee-dot">✦</span>
+      <span>Nitro Coffee</span><span class="marquee-dot">✦</span>
+    </div>
+  </div>
+
+  <!-- FEATURED DRINKS -->
+  <section class="featured">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow">Today's Highlights</p>
+        <h2 class="section-title">House Favorites</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="featured-grid">
+        <div class="featured-card" data-animate="slideIn">
+          <div class="featured-img-wrap">
+            <div class="featured-img fi-1"></div>
+            <div class="featured-badge">Bestseller</div>
+          </div>
+          <div class="featured-info">
+            <p class="featured-category">Signature</p>
+            <h3>The Gold Espresso</h3>
+            <p>A double-shot of our finest Ethiopian Yirgacheffe, pulled slow over 28 seconds for a caramel-forward finish.</p>
+            <div class="featured-bottom">
+              <span class="featured-price">₱185</span>
+              <button class="btn-add" onclick="addToCart('The Gold Espresso', 185, 'Signature Espresso')">
+                <i class="fas fa-plus"></i> Add
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="featured-card" data-animate="slideIn" data-delay="150">
+          <div class="featured-img-wrap">
+            <div class="featured-img fi-2"></div>
+            <div class="featured-badge new-badge">New</div>
+          </div>
+          <div class="featured-info">
+            <p class="featured-category">Seasonal</p>
+            <h3>Emerald Matcha Latte</h3>
+            <p>Ceremonial-grade matcha whisked with oat milk and a touch of vanilla bean. Earthy, smooth, unforgettable.</p>
+            <div class="featured-bottom">
+              <span class="featured-price">₱210</span>
+              <button class="btn-add" onclick="addToCart('Emerald Matcha Latte', 210, 'Seasonal')">
+                <i class="fas fa-plus"></i> Add
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="featured-card" data-animate="slideIn" data-delay="300">
+          <div class="featured-img-wrap">
+            <div class="featured-img fi-3"></div>
+            <div class="featured-badge">Chef's Pick</div>
+          </div>
+          <div class="featured-info">
+            <p class="featured-category">Cold Brew</p>
+            <h3>Midnight Nitro Cold Brew</h3>
+            <p>24-hour steeped Colombian single-origin, nitrogen-infused. Velvety texture, zero bitterness, pure coffee bliss.</p>
+            <div class="featured-bottom">
+              <span class="featured-price">₱230</span>
+              <button class="btn-add" onclick="addToCart('Midnight Nitro Cold Brew', 230, 'Cold Brew')">
+                <i class="fas fa-plus"></i> Add
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="menu" id="menu">
+    <div class="menu-bg-text">MENU</div>
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow">Crafted For You</p>
+        <h2 class="section-title">Our Full Menu</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <!-- SIZE SELECTOR -->
+      <div class="size-selector">
+        <span class="size-label">Cup Size:</span>
+        <button class="size-btn active" data-size="Small" data-mult="1">Small</button>
+        <button class="size-btn" data-size="Medium" data-mult="1.2">Medium</button>
+        <button class="size-btn" data-size="Large" data-mult="1.4">Large</button>
+      </div>
+
+      <!-- MENU FILTERS -->
+      <div class="menu-filters">
+        <button class="filter-btn active" data-filter="all">All Items</button>
+        <button class="filter-btn" data-filter="espresso">Espresso</button>
+        <button class="filter-btn" data-filter="cold">Cold Drinks</button>
+        <button class="filter-btn" data-filter="non-coffee">Non-Coffee</button>
+        <button class="filter-btn" data-filter="food">Food</button>
+        <button class="filter-btn" data-filter="seasonal">Seasonal</button>
+      </div>
+
+      <div class="menu-grid" id="menuGrid"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT / STORY -->
+  <section class="about" id="about">
+    <div class="about-split">
+      <div class="about-visual">
+        <div class="about-img-main">
+          <div class="about-img-placeholder ap1"></div>
+        </div>
+        <div class="about-img-secondary">
+          <div class="about-img-placeholder ap2"></div>
+        </div>
+        <div class="about-badge-float">
+          <span class="badge-year">EST.</span>
+          <span class="badge-num">2026</span>
+          <span class="badge-text">Maison de Café</span>
+        </div>
+      </div>
+      <div class="about-content">
+        <p class="section-eyebrow">Our Heritage</p>
+        <h2 class="section-title about-title">More Than Coffee.<br/><em>A Ritual.</em></h2>
+        <div class="section-line"></div>
+        <p class="about-text">
+          The Coffee was born from a singular obsession: what if every cup felt like a moment worth savoring? We source our beans directly from farms in Ethiopia, Colombia, and the highlands of Benguet — working with farmers who share our belief that extraordinary coffee starts long before the espresso machine.
+        </p>
+        <p class="about-text">
+          Our baristas train for six months before serving their first cup. Every pour, every ratio, every degree of temperature is calibrated for perfection. We call it the Maison Standard — and it's our promise to you.
+        </p>
+        <div class="about-pillars">
+          <div class="pillar">
+            <div class="pillar-icon"><i class="fas fa-seedling"></i></div>
+            <div>
+              <h4>Direct Trade</h4>
+              <p>Sourced from farmers we know by name</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon"><i class="fas fa-award"></i></div>
+            <div>
+              <h4>Award Winning</h4>
+              <p>Best Coffee Shop 2026 — Philippine Barista Guild</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon"><i class="fas fa-leaf"></i></div>
+            <div>
+              <h4>Sustainable</h4>
+              <p>100% compostable packaging & carbon-neutral roasting</p>
+            </div>
+          </div>
+        </div>
+        <button class="btn-primary" onclick="scrollToSection('reserve')">
+          <span>Reserve a Table</span><i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOYALTY PROGRAM -->
+  <section class="loyalty" id="loyalty">
+    <div class="loyalty-bg"></div>
+    <div class="container">
+      <div class="loyalty-inner">
+        <div class="loyalty-content">
+          <p class="section-eyebrow light">Members Only</p>
+          <h2 class="section-title loyalty-title">The Golden Circle</h2>
+          <div class="section-line"></div>
+          <p class="loyalty-desc">
+            Every peso you spend earns you Brew Points. Redeem them for free drinks, exclusive tastings, priority seating, and invitations to our private roasting sessions.
+          </p>
+          <div class="loyalty-tiers">
+            <div class="tier-card" data-tier="bronze">
+              <div class="tier-icon">☕</div>
+              <h4>Brew Member</h4>
+              <p>1 point per ₱10</p>
+              <span class="tier-start">Free to join</span>
+            </div>
+            <div class="tier-card featured-tier" data-tier="gold">
+              <div class="tier-badge-top">Most Popular</div>
+              <div class="tier-icon">⭐</div>
+              <h4>Gold Reserve</h4>
+              <p>1.5x points + free birthday drink</p>
+              <span class="tier-start">500 pts to unlock</span>
+            </div>
+            <div class="tier-card" data-tier="black">
+              <div class="tier-icon">👑</div>
+              <h4>Black Label</h4>
+              <p>2x points + exclusive events</p>
+              <span class="tier-start">2000 pts to unlock</span>
+            </div>
+          </div>
+        </div>
+        <div class="loyalty-card-visual">
+          <div class="reward-card">
+            <div class="reward-card-top">
+              <span class="reward-logo">THE COFFEE</span>
+              <span class="reward-tier-label">GOLD RESERVE</span>
+            </div>
+            <div class="reward-card-mid">
+              <div class="reward-progress-wrap">
+                <p class="reward-pts-label">Brew Points</p>
+                <p class="reward-pts">1,248</p>
+                <div class="reward-progress-bar">
+                  <div class="reward-progress-fill" style="width:62%"></div>
+                </div>
+                <p class="reward-pts-next">752 pts to Black Label</p>
+              </div>
+            </div>
+            <div class="reward-card-bottom">
+              <span class="reward-name">JUAN DELA CRUZ</span>
+              <span class="reward-num">•••• 4821</span>
+            </div>
+          </div>
+          <div class="reward-perks">
+            <div class="reward-perk"><i class="fas fa-check"></i> Free drink on birthday</div>
+            <div class="reward-perk"><i class="fas fa-check"></i> Early access to seasonal menus</div>
+            <div class="reward-perk"><i class="fas fa-check"></i> 10% off all purchases</div>
+            <div class="reward-perk"><i class="fas fa-check"></i> Free size upgrades monthly</div>
+          </div>
+          <button class="btn-primary loyalty-join-btn" onclick="joinLoyalty()">
+            <span>Join The Golden Circle</span><i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow">What They Say</p>
+        <h2 class="section-title">Voices of Our Community</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="testimonials-slider" id="testimonialsSlider">
+        <div class="testimonial-track" id="testimonialTrack">
+          <div class="testimonial-card">
+            <div class="t-stars">★★★★★</div>
+            <p>"The Gold Espresso changed how I think about coffee. I've been to Italy, Tokyo, Melbourne — and this cup stands with the best of them."</p>
+            <div class="t-author">
+              <div class="t-avatar ta1"></div>
+              <div>
+                <strong>Maria Santos</strong>
+                <span>Food Blogger · Manila</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="t-stars">★★★★★</div>
+            <p>"The atmosphere alone is worth the visit. But then the Nitro Cold Brew arrives and you realize this place is operating on a completely different level."</p>
+            <div class="t-author">
+              <div class="t-avatar ta2"></div>
+              <div>
+                <strong>Rafael Gomez</strong>
+                <span>Architect · BGC</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="t-stars">★★★★★</div>
+            <p>"I bring every client here for meetings. The Coffee has this incredible energy — professional enough to close deals, beautiful enough to impress anyone."</p>
+            <div class="t-author">
+              <div class="t-avatar ta3"></div>
+              <div>
+                <strong>Isabelle Reyes</strong>
+                <span>Business Development · Makati</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="t-stars">★★★★★</div>
+            <p>"The Golden Circle rewards program is brilliant. I've earned enough points for two free drinks this month alone. It's loyalty done right."</p>
+            <div class="t-author">
+              <div class="t-avatar ta4"></div>
+              <div>
+                <strong>Marco Villanueva</strong>
+                <span>Daily Regular · Quezon City</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="t-stars">★★★★★</div>
+            <p>"As a coffee professional for 15 years, I rarely rave about a shop. The Coffee earned it. Sourcing, technique, hospitality — they don't cut corners anywhere."</p>
+            <div class="t-author">
+              <div class="t-avatar ta5"></div>
+              <div>
+                <strong>David Lim</strong>
+                <span>Q-Grader Certified · Singapore</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-controls">
+        <button class="t-btn" id="tPrev"><i class="fas fa-arrow-left"></i></button>
+        <div class="t-dots" id="tDots"></div>
+        <button class="t-btn" id="tNext"><i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESERVE A TABLE -->
+  <section class="reserve" id="reserve">
+    <div class="reserve-bg"></div>
+    <div class="container">
+      <div class="reserve-split">
+        <div class="reserve-info">
+          <p class="section-eyebrow light">Book Your Moment</p>
+          <h2 class="section-title reserve-title">Reserve a Table</h2>
+          <div class="section-line"></div>
+          <p class="reserve-desc">
+            Whether it's a quiet morning read, a business lunch, or a special celebration — we'll have your table ready. Every reservation includes a complimentary welcome drink.
+          </p>
+          <div class="reserve-features">
+            <div class="rf"><i class="fas fa-coffee"></i> Complimentary welcome drink</div>
+            <div class="rf"><i class="fas fa-clock"></i> Open 7 AM – 11 PM daily</div>
+            <div class="rf"><i class="fas fa-wifi"></i> High-speed WiFi throughout</div>
+            <div class="rf"><i class="fas fa-parking"></i> Free valet parking</div>
+          </div>
+        </div>
+        <form class="reserve-form" id="reserveForm" onsubmit="submitReservation(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" placeholder="Juan dela Cruz" required />
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" placeholder="juan@email.com" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" placeholder="+63 9XX XXX XXXX" required />
+            </div>
+            <div class="form-group">
+              <label>Number of Guests</label>
+              <select required>
+                <option value="">Select guests</option>
+                <option>1 Guest</option>
+                <option>2 Guests</option>
+                <option>3 Guests</option>
+                <option>4 Guests</option>
+                <option>5-8 Guests</option>
+                <option>9+ Guests (Private Event)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Preferred Date</label>
+              <input type="date" required />
+            </div>
+            <div class="form-group">
+              <label>Preferred Time</label>
+              <select required>
+                <option value="">Select time</option>
+                <option>7:00 AM</option>
+                <option>8:00 AM</option>
+                <option>9:00 AM</option>
+                <option>10:00 AM</option>
+                <option>11:00 AM</option>
+                <option>12:00 PM</option>
+                <option>1:00 PM</option>
+                <option>2:00 PM</option>
+                <option>3:00 PM</option>
+                <option>4:00 PM</option>
+                <option>5:00 PM</option>
+                <option>6:00 PM</option>
+                <option>7:00 PM</option>
+                <option>8:00 PM</option>
+                <option>9:00 PM</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Location</label>
+            <select required>
+              <option value="">Choose branch</option>
+              <option>BGC, Taguig</option>
+              <option>Makati CBD</option>
+              <option>Ortigas Center</option>
+              <option>Quezon City Ave</option>
+              <option>Alabang Town Center</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Special Requests</label>
+            <textarea placeholder="Anniversary setup, dietary restrictions, accessibility needs..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary reserve-submit-btn">
+            <span>Confirm Reservation</span><i class="fas fa-check"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATIONS -->
+  <section class="locations" id="locations">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow">Find Us</p>
+        <h2 class="section-title">Our Locations</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="locations-grid">
+        <div class="location-card lc-active" onclick="selectLocation(this)">
+          <div class="lc-flag">Flagship</div>
+          <h3>BGC, Taguig</h3>
+          <p><i class="fas fa-map-marker-alt"></i> 30th Street, Bonifacio Global City</p>
+          <p><i class="fas fa-clock"></i> Mon–Sun: 7:00 AM – 11:00 PM</p>
+          <p><i class="fas fa-phone"></i> +63 2 8888 0001</p>
+          <div class="lc-features">
+            <span>Drive-Thru</span><span>Private Room</span><span>Rooftop</span>
+          </div>
+          <button class="lc-directions-btn">Get Directions <i class="fas fa-external-link-alt"></i></button>
+        </div>
+        <div class="location-card" onclick="selectLocation(this)">
+          <h3>Makati CBD</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Ayala Ave, Makati City</p>
+          <p><i class="fas fa-clock"></i> Mon–Fri: 6:30 AM – 10:00 PM</p>
+          <p><i class="fas fa-phone"></i> +63 2 8888 0002</p>
+          <div class="lc-features">
+            <span>Express Counter</span><span>Meeting Pods</span>
+          </div>
+          <button class="lc-directions-btn">Get Directions <i class="fas fa-external-link-alt"></i></button>
+        </div>
+        <div class="location-card" onclick="selectLocation(this)">
+          <h3>Ortigas Center</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Exchange Rd, Pasig City</p>
+          <p><i class="fas fa-clock"></i> Mon–Sun: 7:00 AM – 10:00 PM</p>
+          <p><i class="fas fa-phone"></i> +63 2 8888 0003</p>
+          <div class="lc-features">
+            <span>Garden Terrace</span><span>Events Space</span>
+          </div>
+          <button class="lc-directions-btn">Get Directions <i class="fas fa-external-link-alt"></i></button>
+        </div>
+        <div class="location-card" onclick="selectLocation(this)">
+          <h3>Quezon City Ave</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Quezon Ave, QC</p>
+          <p><i class="fas fa-clock"></i> Mon–Sun: 7:00 AM – 10:00 PM</p>
+          <p><i class="fas fa-phone"></i> +63 2 8888 0004</p>
+          <div class="lc-features">
+            <span>Drive-Thru</span><span>Family Area</span>
+          </div>
+          <button class="lc-directions-btn">Get Directions <i class="fas fa-external-link-alt"></i></button>
+        </div>
+        <div class="location-card" onclick="selectLocation(this)">
+          <h3>Alabang Town Center</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Alabang, Muntinlupa City</p>
+          <p><i class="fas fa-clock"></i> Mon–Sun: 7:00 AM – 11:00 PM</p>
+          <p><i class="fas fa-phone"></i> +63 2 8888 0005</p>
+          <div class="lc-features">
+            <span>Late Night</span><span>Live Music Fri-Sat</span>
+          </div>
+          <button class="lc-directions-btn">Get Directions <i class="fas fa-external-link-alt"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-split">
+        <div class="contact-info">
+          <p class="section-eyebrow">Get In Touch</p>
+          <h2 class="section-title contact-title">We'd Love to<br/><em>Hear From You</em></h2>
+          <div class="section-line"></div>
+          <div class="contact-details">
+            <div class="cd">
+              <div class="cd-icon"><i class="fas fa-envelope"></i></div>
+              <div>
+                <strong>Email Us</strong>
+                <a href="mailto:hello@thecoffee.ph">hello@thecoffee.ph</a>
+              </div>
+            </div>
+            <div class="cd">
+              <div class="cd-icon"><i class="fas fa-phone"></i></div>
+              <div>
+                <strong>Call Us</strong>
+                <a href="tel:+6328880000">+63 2 888-0000</a>
+              </div>
+            </div>
+            <div class="cd">
+              <div class="cd-icon"><i class="fas fa-briefcase"></i></div>
+              <div>
+                <strong>Partnership & Events</strong>
+                <a href="mailto:partners@thecoffee.ph">partners@thecoffee.ph</a>
+              </div>
+            </div>
+          </div>
+          <div class="social-links">
+            <a href="#" class="social-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-btn" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="social-btn" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="#" class="social-btn" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" class="social-btn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <form class="contact-form" id="contactForm" onsubmit="submitContact(event)">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" placeholder="Juan dela Cruz" required />
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="juan@email.com" required />
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <select>
+              <option>General Inquiry</option>
+              <option>Franchise Opportunity</option>
+              <option>Press & Media</option>
+              <option>Events & Catering</option>
+              <option>Feedback & Suggestions</option>
+              <option>Corporate Orders</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea rows="5" placeholder="Tell us what's on your mind..." required></textarea>
+          </div>
+          <button type="submit" class="btn-primary contact-submit-btn">
+            <span>Send Message</span><i class="fas fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER BAND -->
+  <div class="newsletter-band">
+    <div class="container">
+      <div class="newsletter-inner">
+        <div class="newsletter-text">
+          <h3>Stay in the Brew Loop</h3>
+          <p>Seasonal menu drops, exclusive offers, and behind-the-scenes stories — delivered to your inbox.</p>
+        </div>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Your email address" id="newsletterEmail" />
+          <button onclick="subscribeNewsletter()">Subscribe <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="footer-logo-icon">☕</span>
+            <div>
+              <span class="footer-logo-title">THE COFFEE</span>
+              <span class="footer-logo-sub">MAISON DE CAFÉ</span>
+            </div>
+          </div>
+          <p class="footer-tagline">Where every sip tells a story. Crafted with passion, served with elegance.</p>
+          <p class="footer-est">EST. 2026 · Philippines</p>
+        </div>
+        <div class="footer-links-col">
+          <h4>Explore</h4>
+          <a href="#home">Home</a>
+          <a href="#menu">Full Menu</a>
+          <a href="#about">Our Story</a>
+          <a href="#loyalty">Rewards</a>
+        </div>
+        <div class="footer-links-col">
+          <h4>Visit Us</h4>
+          <a href="#locations">Locations</a>
+          <a href="#reserve">Reservations</a>
+          <a href="#contact">Contact</a>
+          <a href="#">Careers</a>
+        </div>
+        <div class="footer-links-col">
+          <h4>More</h4>
+          <a href="#">Franchise</a>
+          <a href="#">Corporate Orders</a>
+          <a href="#">Press & Media</a>
+          <a href="#">Gift Cards</a>
+        </div>
+        <div class="footer-links-col">
+          <h4>Legal</h4>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+          <a href="#">Accessibility</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 The Coffee — Maison de Café. All rights reserved.</p>
+        <p>Proudly Philippine-made. ❤️</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast">
+    <i class="fas fa-check-circle toast-icon"></i>
+    <span id="toastMsg">Item added!</span>
+  </div>
+
+  <!-- MODAL OVERLAY -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+
+  <!-- BACK TO TOP -->
+  <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <script src="coffee.js"></script>
+</body>
+</html>
