@@ -1,0 +1,37 @@
+© 2026 [Your Name / Brand] — All Rights Reserved
+
+This Source Viewing License Agreement governs the access, viewing, and use of this website and all associated materials. By accessing or interacting with this website in any manner, you acknowledge that you have read, understood, and agreed to the terms outlined below.
+
+1. Ownership
+
+All content made available on this website, including but not limited to source code, design elements, layout, structure, graphics, written content, and system functionality, is the exclusive property of the owner unless otherwise stated. These materials are protected under applicable copyright and intellectual property laws.
+
+2. Limited Viewing Permission
+
+You are granted a limited and revocable permission to view the source code of this website solely for personal, educational, or informational purposes. This permission is provided for transparency only and does not grant any form of ownership, license, or usage rights over the code or design.
+
+3. Restrictions on Use
+
+You are strictly prohibited from copying, reproducing, modifying, distributing, or republishing any part of this website in any form. You may not use the code, design, structure, or any component of this website in personal, commercial, or public projects. You are also not permitted to reverse engineer, decompile, or attempt to replicate the functionality or design of this website.
+
+4. No Open-Source Rights
+
+This website is not distributed as open-source software. Any access to its source code does not imply permission to reuse, modify, or redistribute it under any open-source or similar licensing terms.
+
+5. Termination of Access
+
+Any violation of these terms will result in the immediate termination of your permission to view or interact with the source code. Upon termination, you are required to cease any form of access or use of the website’s materials.
+
+6. Disclaimer
+
+This website and all related materials are provided on an “as is” basis without warranties of any kind, whether express or implied. The owner makes no guarantees regarding accuracy, reliability, or suitability for any particular purpose.
+
+7. Contact Information
+
+For inquiries regarding permissions, licensing, or other concerns, you may contact the owner at:
+📧 [your email]
+
+8. Final Statement
+
+This website is provided in a source-visible format for transparency purposes only. It is not open-source, and no rights are granted beyond those explicitly stated in this agreement. All rights remain fully reserved.
+
